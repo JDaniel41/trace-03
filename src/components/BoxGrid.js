@@ -13,9 +13,9 @@ function BoxGrid({ boxesAreClickable, initialStates }) {
     }
 
     return (
-        <div className="grid grid-cols-3 justify-between gap-1 h-96 w-96">
+        <ul className="grid grid-cols-3 justify-between gap-1 h-96 w-96">
             {initialStates.map(renderBlinkBox)}
-        </div>
+        </ul>
     );
 }
 

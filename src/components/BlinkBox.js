@@ -12,14 +12,14 @@ function BlinkBox({ canBeClicked, initialState }) {
     }
 
     return (
-        <div
+        <li
             className={
                 bgColor + " border-4 border-black border-opacity-100 rounded-md"
             }
             onClick={updateColor}
         >
             &nbsp;
-        </div>
+        </li>
     );
 }
 
