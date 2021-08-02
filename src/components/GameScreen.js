@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BoxGrid from "./BoxGrid";
+import StartScreen from "./StartScreen";
 
 function GameScreen() {
     let [showBoard, setShowBoard] = useState(false);
@@ -48,12 +49,7 @@ function GameScreen() {
     }
 
     function showStartScreen() {
-        return (
-            <div>
-                <div>Welcome to my Memory Game!</div>
-                <button onClick={switchToGameBoard}>Click</button>
-            </div>
-        );
+        return <StartScreen onButtonClick={switchToGameBoard} />;
     }
 
     return (

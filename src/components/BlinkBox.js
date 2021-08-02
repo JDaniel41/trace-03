@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function BlinkBox({ canBeClicked, initialState }) {
     const [lightOn, setLightState] = useState(initialState);
@@ -10,6 +10,10 @@ function BlinkBox({ canBeClicked, initialState }) {
             setLightState(!lightOn);
         }
     }
+
+    useEffect(() => {
+        bgColor = lightOn ? "bg-white" : "bg-red-600";
+    });
 
     return (
         <li
