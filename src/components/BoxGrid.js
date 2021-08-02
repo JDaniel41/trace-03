@@ -1,10 +1,11 @@
 import { useState } from "react";
 import BlinkBox from "./BlinkBox";
 
-function BoxGrid({ boxesAreClickable, initialStates, patternCallback }) {
+function BoxGrid({ boxesAreClickable, initialStates }) {
     function renderBlinkBox(initialState, index) {
         return (
             <BlinkBox
+                key={index}
                 canBeClicked={boxesAreClickable[index]}
                 initialState={initialState}
             />
