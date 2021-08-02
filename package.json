@@ -1,5 +1,6 @@
 {
     "name": "trace-03",
+    "homepage": "https://jdaniel41.github.io/trace-03",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -16,6 +17,7 @@
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
+        "deploy" : "npm run build&&gh-pages -d build",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
