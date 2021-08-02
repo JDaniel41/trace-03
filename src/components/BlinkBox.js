@@ -1,5 +1,26 @@
-function BlinkBox() {
-    return <div></div>;
+import { useState } from "react";
+
+function BlinkBox({ canBeClicked, initialState }) {
+    const [lightOn, setLightState] = useState(initialState);
+
+    let bgColor = lightOn ? "bg-white" : "bg-red-600";
+
+    function updateColor() {
+        if (canBeClicked) {
+            setLightState(!lightOn);
+        }
+    }
+
+    return (
+        <div
+            className={
+                bgColor + " border-4 border-black border-opacity-100 rounded-md"
+            }
+            onClick={updateColor}
+        >
+            &nbsp;
+        </div>
+    );
 }
 
 export default BlinkBox;
