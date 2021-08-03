@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 
-function BlinkBox({ canBeClicked, initialState }) {
+function BlinkBox({ canBeClicked, initialState, boxId, handleBoxOnClick }) {
     const [lightOn, setLightState] = useState(initialState);
 
     let bgColor = lightOn ? "bg-white" : "bg-red-600";
 
     function updateColor() {
         if (canBeClicked) {
+            handleBoxOnClick(boxId);
             setLightState(!lightOn);
         }
     }
 
     useEffect(() => {
-        bgColor = lightOn ? "bg-white" : "bg-red-600";
-    });
+        setLightState(initialState);
+    }, [initialState]);
 
     return (
         <li

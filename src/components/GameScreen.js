@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BoxGrid from "./BoxGrid";
 import StartScreen from "./StartScreen";
 
 function GameScreen() {
     let [showBoard, setShowBoard] = useState(false);
-    let [playingPattern, setPlayingPattern] = useState(false);
+    let [playingPattern, setPlayingPattern] = useState(true);
     let [currentPatternIdx, setCurrentPatternIdx] = useState(0);
-    let [currentPattern, setCurrentPattern] = useState([1, 2, 3, 4, 5, 6]);
+    let [currentPattern, setCurrentPattern] = useState(generatePattern(3));
     let [currentBoardState, setCurrentBoardState] = useState(
-        getGridStatesForSpace(currentPattern[0])
+        Array(9).fill(false)
     );
+    let [clickableBoxes, setClickableBoxes] = useState(Array(9).fill(false));
+
+    function handleBoxOnClick(boxNum) {
+        if (boxNum === currentPattern[currentPatternIdx]) {
+            // IT MATCHES!
+            setCurrentPatternIdx(currentPatternIdx + 1);
+            if (currentPatternIdx === currentPattern.length - 1) {
+                console.log("DONE!");
+            }
+        } else {
+            // Need to show End Game Screen
+            setShowBoard(false);
+        }
+    }
+
+    function generatePattern(patternLength) {
+        let pattern = [];
+
+        while (pattern.length < patternLength) {
+            pattern.push(Math.floor(Math.random() * 9));
+        }
+
+        return pattern;
+    }
 
     function getGridStatesForSpace(currentSpace) {
         let states = Array(9)
@@ -21,25 +45,42 @@ function GameScreen() {
     }
 
     function executeNextButtonClick() {
-        let boxesAreClickable = Array(9).fill(false);
-        setCurrentBoardState(
-            getGridStatesForSpace(currentPattern[currentPatternIdx])
-        );
-        console.log(currentBoardState);
+        if (playingPattern) {
+            setCurrentBoardState(
+                getGridStatesForSpace(currentPattern[currentPatternIdx])
+            );
+            console.log(currentBoardState);
+            setCurrentPatternIdx(currentPatternIdx + 1);
 
-        setCurrentPatternIdx(currentPatternIdx + 1);
+            if (currentPatternIdx === currentPattern.length - 1) {
+                setCurrentPatternIdx(0);
+                setPlayingPattern(false);
+                console.log("First False");
+                setClickableBoxes(Array(9).fill(true));
+            }
+        } else {
+            console.log("False");
+        }
     }
 
     function showGameBoard() {
-        let boxesAreClickable = Array(9).fill(false);
-
         return (
             <div>
+                <h1>
+                    {playingPattern
+                        ? "Click to see next step!"
+                        : "Guess the Pattern!"}
+                </h1>
                 <BoxGrid
-                    boxesAreClickable={boxesAreClickable}
+                    boxesAreClickable={clickableBoxes}
                     initialStates={currentBoardState}
+                    handleBoxOnClick={handleBoxOnClick}
                 />
-                <button onClick={executeNextButtonClick}>See Next One!</button>
+                {playingPattern ? (
+                    <button onClick={executeNextButtonClick}>
+                        See Next One!
+                    </button>
+                ) : null}
             </div>
         );
     }

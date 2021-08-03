@@ -1,4 +1,3 @@
-import BoxGrid from "./components/BoxGrid";
 import GameScreen from "./components/GameScreen";
 
 function App() {

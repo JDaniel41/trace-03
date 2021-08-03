@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect } from "react/cjs/react.production.min";
 import BlinkBox from "./BlinkBox";
 
-function BoxGrid({ boxesAreClickable, initialStates }) {
+function BoxGrid({ boxesAreClickable, initialStates, handleBoxOnClick }) {
     function renderBlinkBox(initialState, index) {
         return (
             <BlinkBox
                 key={index}
+                boxId={index}
                 canBeClicked={boxesAreClickable[index]}
                 initialState={initialState}
+                handleBoxOnClick={handleBoxOnClick}
             />
         );
     }
